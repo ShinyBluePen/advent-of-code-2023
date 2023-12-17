@@ -1,29 +1,34 @@
 from aocd import get_data
 
-session = "53616c7465645f5f0f5451a354d16a73ff1278c469a8aa02d3cb039cbb083f50820e16f4f0da22934519af7dbaa242043137749bebd7f381a3b4314910b4641a"
+session = None
 
-data = get_data(session=session, year=2023, day=6).splitlines()
-
-import re
-
+data = get_data(session=session, year=2023, day=1).splitlines()
 digit_words = "one two three four five six seven eight nine".split()
-digit_map = {word: str(digit) for word, digit in zip(digit_words, range(1, len(digit_words)+1))}
-pattern = "(?=(" + "|".join(digit_words) + "|\\d))"
+DIGITS = {word: digit for word, digit in zip(digit_words, range(1, len(digit_words)+1))}
 
-calibration_values = []
+def check_digit(string):
+    if string[0].isdigit():
+        return int(string[0])
+
+    d = next(filter(string.startswith, DIGITS), None)
+    return DIGITS.get(d, 0)
+
+total1 = total2 = 0
+
 for line in data:
-    digits = re.findall(pattern, line)
-    for i, d in enumerate(digits):
-        if d in digit_map:
-            digits[i] = digit_map[d]
-    calibration_values.append(int(digits[0] + digits[-1]))
+    total1 += 10 * int(next(filter(str.isdigit, line)))
+    total1 += int(next(filter(str.isdigit, line[::-1])))
 
-print(len(calibration_values))
-print(sum(calibration_values))
+    for i in range(len(line)):
+        a = check_digit(line[i:])
+        if a:
+            break
 
+    for i in range(len(line) - 1, -1, -1):
+        b = check_digit(line[i:])
+        if b:
+            break
+    total2 += 10 * a + b
 
-
-
-
-
-
+print('Part 1:', total1)
+print('Part 2:', total2)
