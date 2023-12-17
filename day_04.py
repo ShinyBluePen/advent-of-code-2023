@@ -1,6 +1,6 @@
 from aocd import get_data
 
-session = "53616c7465645f5f0f5451a354d16a73ff1278c469a8aa02d3cb039cbb083f50820e16f4f0da22934519af7dbaa242043137749bebd7f381a3b4314910b4641a"
+session = None
 
 class Card:
     def __init__(self, numbers, winning_numbers):
