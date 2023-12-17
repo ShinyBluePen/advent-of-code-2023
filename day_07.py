@@ -1,6 +1,6 @@
 from aocd import get_data
 
-session = "53616c7465645f5f0f5451a354d16a73ff1278c469a8aa02d3cb039cbb083f50820e16f4f0da22934519af7dbaa242043137749bebd7f381a3b4314910b4641a"
+session = None
 
 _hand_ranking = ("five of a kind.four of a kind.full house.three of a kind.two pair.two of a kind.high card").split(".")
 _cards = "2 3 4 5 6 7 8 9 T J Q K A".split()
